@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Rejestracja pociągu w pamięci współdzielonej
-    sem_wait(&shm->generator_mutex); // Zablokowanie dostępu do pamięci współdzielonej
+    sem_wait(&shm->memory_mutex); // Zablokowanie dostępu do pamięci współdzielonej
 
     if (shm->tracks[track].queue_size < MAX_TRAINS_ON_TRACK) {
         shm->tracks[track].queue[shm->tracks[track].queue_size].train_id = train_id;
@@ -37,20 +37,30 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Train queue is full, train %d cannot register.\n", train_id);
     }
 
-    sem_post(&shm->generator_mutex); // Odblokowanie dostępu do pamięci współdzielonej
+    sem_post(&shm->memory_mutex); // Odblokowanie dostępu do pamięci współdzielonej
 
     // Oczekiwanie na pozwolenie wjazdu/wyjazdu
-    sem_wait(&shm->tunnel_access);
+    
     sem_wait(&shm->tracks[track].track_mutex);
+    sem_wait(&shm->tunnel_access);
+
+    sem_wait(&shm->memory_mutex);
+    if(&shm->tracks[track].trains_to_dump > 0){
+        printf("Train %d was removed\n", train_id);
+        shm->tracks[track].trains_to_dump--;
+        shm->tunnel_busy = 0;
+        return 0;
+    }
+    sem_post(&shm->memory_mutex);
     printf("Train %d entering tunnel\n", train_id);
 
     // Symulacja przejazdu przez tunel
     sleep(2);
 
     // Zwolnienie tunelu
-    sem_wait(&shm->generator_mutex);
+    sem_wait(&shm->memory_mutex);
     shm->tunnel_busy = 0;
-    sem_post(&shm->generator_mutex);
+    sem_post(&shm->memory_mutex);
 
     printf("Train %d exited tunnel\n", train_id);
 

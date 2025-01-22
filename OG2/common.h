@@ -6,6 +6,7 @@
 #include <semaphore.h>
 #include <time.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #define MAX_TRAINS_ON_TRACK 3
 #define TRACKS_NUMBER 4
@@ -19,13 +20,14 @@ typedef struct {
 typedef struct {
     Train queue[MAX_TRAINS_ON_TRACK];
     int queue_size;
+    int trains_to_dump;
     sem_t track_mutex;
 } Track;
 
 typedef struct {
     Track tracks[TRACKS_NUMBER];
     int tunnel_busy;
-    sem_t generator_mutex;         // Synchronizacja dostępu do pamięci
+    sem_t memory_mutex;         // Synchronizacja dostępu do pamięci
     sem_t tunnel_access; // Kontrola wjazdu do tunelu
 } SharedMemory;
 

@@ -15,7 +15,7 @@ void create_train_process(int train_id, int priority, int direction, SharedMemor
 }
 
 int main() {
-    srand(time(NULL)); // Inicjalizacja generatora liczb losowych
+    srand(time(NULL)); // Inicjalizacja memorya liczb losowych
 
     // Tworzenie pamięci współdzielonej
     // int shmid = shmget(IPC_PRIVATE, sizeof(SharedMemory), IPC_CREAT | 0666);
