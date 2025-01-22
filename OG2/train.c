@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     // Oczekiwanie na pozwolenie wjazdu/wyjazdu
     sem_wait(&shm->tunnel_access);
     sem_wait(&shm->tracks[track].track_mutex);
-    printf("Train %d entering/exiting tunnel\n", train_id);
+    printf("Train %d entering tunnel\n", train_id);
 
     // Symulacja przejazdu przez tunel
     sleep(2);

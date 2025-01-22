@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <time.h>
 #include "common.h"
 
 void create_train_process(int train_id, int priority, int direction, int track) {

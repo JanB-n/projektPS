@@ -48,6 +48,7 @@ void process_queue(SharedMemory* shm) {
         // Sprawdzamy pociągi w kolejkach
         int sum = 0;
         for (int i = 0; i < TRACKS_NUMBER; i++) {
+            printf("track: %d, queue size:: %d\n", i, shm->tracks[i].queue_size);
             if (shm->tracks[i].queue_size > 0) {
                 valid_trains[i] = shm->tracks[i].queue[0].priority;
                 sum += valid_trains[i];
@@ -55,8 +56,8 @@ void process_queue(SharedMemory* shm) {
         }
         if(sum == 0){
             printf("No trains detected\n");
-            sleep(5);
             sem_post(&shm->generator_mutex);
+            sleep(5);
             continue;
         }
 
@@ -161,10 +162,11 @@ int main() {
 
     for (int i = 0; i < TRACKS_NUMBER; i++) {
         shm->tracks[i].queue_size = 0;
+        sem_init(&shm->tracks[i].track_mutex, 1, 0);
     }
     shm->tunnel_busy = 0;
     sem_init(&shm->generator_mutex, 1, 1);         // Semafor mutex
-    sem_init(&shm->tunnel_access, 1, 0); // Semafor tunelu
+    sem_init(&shm->tunnel_access, 1, 1); // Semafor tunelu
 
 
     printf("Tunnel manager started.\n");
