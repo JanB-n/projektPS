@@ -5,7 +5,7 @@ cleanup() {
     pkill manager
     pkill generator
     rm -f generator.log
-    # rm -f trains.txt
+    rm -f trains.txt
     sleep 1
 }
 
@@ -30,7 +30,6 @@ track_priorities[2]=0
 track_priorities[3]=0
 
 while read -r line; do
-    # Odczytywanie danych
     TRAIN_ID=$(echo "$line" | grep -oP 'Train ID=\K\d+')
     PRIORITY=$(echo "$line" | grep -oP 'priority=\K\d+')
     TRACK=$(echo "$line" | grep -oP 'track=\K\d+')
