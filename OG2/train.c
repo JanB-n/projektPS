@@ -44,14 +44,14 @@ int main(int argc, char* argv[]) {
     sem_wait(&shm->tracks[track].track_mutex);
     sem_wait(&shm->tunnel_access);
 
-    sem_wait(&shm->memory_mutex);
+    //sem_wait(&shm->memory_mutex);
     if(&shm->tracks[track].trains_to_dump > 0){
         printf("Train %d was removed\n", train_id);
         shm->tracks[track].trains_to_dump--;
-        shm->tunnel_busy = 0;
+        // shm->tunnel_busy = 0;
         return 0;
     }
-    sem_post(&shm->memory_mutex);
+    //sem_post(&shm->memory_mutex);
     printf("Train %d entering tunnel\n", train_id);
 
     // Symulacja przejazdu przez tunel
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
 
     // Zwolnienie tunelu
     sem_wait(&shm->memory_mutex);
-    shm->tunnel_busy = 0;
+    // shm->tunnel_busy = 0;
     sem_post(&shm->memory_mutex);
 
     printf("Train %d exited tunnel\n", train_id);

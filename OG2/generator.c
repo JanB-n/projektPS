@@ -1,5 +1,34 @@
 #include "common.h"
 
+int shmid;
+SharedMemory* shm;
+pid_t train_pids[MAX_TRAINS_ON_TRACK * TRACKS_NUMBER];
+int train_count = 0;
+
+void cleanup(int signum) {
+    printf("\nCaught signal %d, cleaning up...\n", signum);
+
+    // Zabicie wszystkich procesów pociągów
+    for (int i = 0; i < train_count; i++) {
+        printf("Stopping train process %d...\n", train_pids[i]);
+        kill(train_pids[i], SIGTERM);
+    }
+
+    // Usuwanie semaforów
+    for (int i = 0; i < TRACKS_NUMBER; i++) {
+        sem_destroy(&shm->tracks[i].track_mutex);
+    }
+    sem_destroy(&shm->memory_mutex);
+    sem_destroy(&shm->tunnel_access);
+
+    // Odłączenie pamięci współdzielonej
+    shmdt(shm);
+    shmctl(shmid, IPC_RMID, NULL);
+
+    printf("All resources cleaned up. Exiting.\n");
+    exit(0);
+}
+
 void create_train_process(int train_id, int priority, int direction, SharedMemory* shm) {
     pid_t pid = fork();
     if (pid == 0) { // Proces dziecka - pociąg
@@ -12,20 +41,29 @@ void create_train_process(int train_id, int priority, int direction, SharedMemor
         perror("execlp failed"); // Jeśli nie uda się uruchomić procesu pociągu
         exit(1);
     }
+    else if (pid > 0) {
+        // Przechowywanie PID procesu pociągu
+        if (train_count < MAX_TRAINS_ON_TRACK * TRACKS_NUMBER) {
+            train_pids[train_count++] = pid;
+        }
+    } else {
+        perror("fork failed");
+    }
 }
 
 int main() {
+    signal(SIGINT, cleanup);
     srand(time(NULL)); // Inicjalizacja memorya liczb losowych
 
     // Tworzenie pamięci współdzielonej
     // int shmid = shmget(IPC_PRIVATE, sizeof(SharedMemory), IPC_CREAT | 0666);
-    int shmid = shmget(12345, sizeof(SharedMemory), 0666);
+    shmid = shmget(12345, sizeof(SharedMemory), 0666);
     if (shmid < 0) {
         perror("shmget failed");
         exit(1);
     }
 
-    SharedMemory* shm = (SharedMemory*)shmat(shmid, NULL, 0);
+    shm = (SharedMemory*)shmat(shmid, NULL, 0);
     if (shm == (SharedMemory*)-1) {
         perror("shmat failed");
         exit(1);

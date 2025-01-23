@@ -71,7 +71,7 @@ bool can_train_pass(int track_id, int* valid_trains) {
 void process_queue(SharedMemory* shm) {
     while (1) {
         sem_wait(&shm->memory_mutex); // Blokowanie dostępu do pamięci współdzielonej
-        if(shm->tunnel_busy == 0){
+        // if(shm->tunnel_busy == 0){
             int valid_trains[TRACKS_NUMBER] = {0};
 
             // Sprawdzamy pociągi w kolejkach
@@ -132,13 +132,13 @@ void process_queue(SharedMemory* shm) {
             sem_post(&shm->tracks[track_to_move].track_mutex);
             printf("Wjazd do tunelu - Tor %d: Pociąg ID=%d, Priorytet=%d\n", 
                 track_to_move, shm->tracks[track_to_move].queue[0].train_id, shm->tracks[track_to_move].queue[0].priority);
-
+            // shm->tunnel_busy = 1;
             // Przemieszczanie pociągu z kolejki
             for (int i = 0; i < shm->tracks[track_to_move].queue_size - 1; i++) {
                 shm->tracks[track_to_move].queue[i] = shm->tracks[track_to_move].queue[i + 1];
             }
             shm->tracks[track_to_move].queue_size--;
-        }
+        //}
         sem_post(&shm->memory_mutex); // Zwolnienie semafora
         sleep(3); // Kontrola cyklu
     }
