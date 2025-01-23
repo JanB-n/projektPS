@@ -55,16 +55,16 @@ void train_process(int train_id, int priority, int track) {
     sem_wait(&shm->tracks[track].track_mutex);
 
     if (shm->tracks[track].trains_to_dump > 0) {
-        printf("Train %d was removed\n", train_id);
+        printf("Train ID=%d was removed\n", train_id);
         shm->tracks[track].trains_to_dump--;
         exit(0);
     }
 
     sem_wait(&shm->tunnel_access);
 
-    printf("Train %d entering tunnel\n", train_id);
+    printf("Train ID=%d entering tunnel\n", train_id);
     sleep(2);
-    printf("Train %d leaving tunnel\n", train_id);
+    printf("Train ID=%d leaving tunnel\n", train_id);
 
     exit(0);
 }

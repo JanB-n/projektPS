@@ -1,0 +1,63 @@
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Train ID=2 registered: priority=2, track=3
+Train ID=2 entering tunnel
+Train ID=2 leaving tunnel
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Train ID=0 registered: priority=1, track=2
+Train ID=0 entering tunnel
+Train ID=0 leaving tunnel
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Generating train ID=3, priority=1, track=2
+Generating train ID=4, priority=3, track=1
+Train ID=4 registered: priority=3, track=1
+Train ID=4 entering tunnel
+Train ID=4 leaving tunnel
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Generating train ID=3, priority=1, track=2
+Generating train ID=4, priority=3, track=1
+Generating train ID=5, priority=2, track=3
+Train ID=5 registered: priority=2, track=3
+Train ID=5 was removed
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Generating train ID=3, priority=1, track=2
+Generating train ID=4, priority=3, track=1
+Generating train ID=5, priority=2, track=3
+Generating train ID=6, priority=1, track=3
+Train ID=6 registered: priority=1, track=3
+Train ID=6 was removed
+Tunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Generating train ID=3, priority=1, track=2
+Generating train ID=4, priority=3, track=1
+Generating train ID=5, priority=2, track=3
+Generating train ID=6, priority=1, track=3
+Generating train ID=7, priority=1, track=0
+Generating train ID=8, priority=2, track=2
+Generating train ID=9, priority=2, track=1
+Train ID=9 registered: priority=2, tTunnel manager started. Press Ctrl+C to exit.
+Generating train ID=0, priority=1, track=2
+Generating train ID=1, priority=2, track=2
+Generating train ID=2, priority=2, track=3
+Generating train ID=3, priority=1, track=2
+Generating train ID=4, priority=3, track=1
+Generating train ID=5, priority=2, track=3
+Generating train ID=6, priority=1, track=3
+Generating train ID=7, priority=1, track=0
+Generating train ID=8, priority=2, track=2
+Generating train ID=9, priority=2, track=1
+Generating train ID=10, priority=3, 

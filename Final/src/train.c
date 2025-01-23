@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     int priority = atoi(argv[2]);
     int track = atoi(argv[3]);
 
-    int shmid = shmget(12345, sizeof(SharedMemory), 0666);
+    int shmid = shmget(SHM_KEY, sizeof(SharedMemory), 0666);
     if (shmid < 0) {
         perror("shmget failed");
         exit(1);
@@ -37,16 +37,16 @@ int main(int argc, char* argv[]) {
     sem_wait(&shm->tracks[track].track_mutex);
 
     if(shm->tracks[track].trains_to_dump > 0){
-        printf("Train %d was removed\n", train_id);
+        printf("Train ID=%d was removed\n", train_id);
         shm->tracks[track].trains_to_dump--;
         return 0;
     }
     
     sem_wait(&shm->tunnel_access);
     
-    printf("Train %d entering tunnel\n", train_id);
+    printf("Train ID=%d entering tunnel\n", train_id);
     sleep(2);
-    printf("Train %d leaving tunnel\n", train_id);
+    printf("Train ID=%d leaving tunnel\n", train_id);
 
     return 0;
 }

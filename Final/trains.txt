@@ -1,0 +1,15 @@
+Train ID=2 registered: priority=3, track=1
+Train ID=2 entering tunnel
+Train ID=2 leaving tunnel
+Train ID=3 registered: priority=3, track=1
+Train ID=3 entering tunnel
+Train ID=3 leaving tunnel
+Train ID=4 registered: priority=1, track=0
+Train ID=4 entering tunnel
+Train ID=4 leaving tunnel
+Train ID=5 registered: priority=3, track=0
+Train ID=5 entering tunnel
+Train ID=5 leaving tunnel
+Train ID=6 registered: priority=3, track=1
+Train ID=6 entering tunnel
+Train ID=6 leaving tunnel
