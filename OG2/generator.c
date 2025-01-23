@@ -15,15 +15,15 @@ void cleanup(int signum) {
     }
 
     // Usuwanie semaforów
-    for (int i = 0; i < TRACKS_NUMBER; i++) {
-        sem_destroy(&shm->tracks[i].track_mutex);
-    }
-    sem_destroy(&shm->memory_mutex);
-    sem_destroy(&shm->tunnel_access);
+    // for (int i = 0; i < TRACKS_NUMBER; i++) {
+    //     sem_destroy(&shm->tracks[i].track_mutex);
+    // }
+    // sem_destroy(&shm->memory_mutex);
+    // sem_destroy(&shm->tunnel_access);
 
-    // Odłączenie pamięci współdzielonej
-    shmdt(shm);
-    shmctl(shmid, IPC_RMID, NULL);
+    // // Odłączenie pamięci współdzielonej
+    // shmdt(shm);
+    // shmctl(shmid, IPC_RMID, NULL);
 
     printf("All resources cleaned up. Exiting.\n");
     exit(0);
@@ -79,7 +79,8 @@ int main() {
         create_train_process(train_id, priority, track, shm);
         train_id++;
 
-        sleep(rand() % 3 + 1); // Czas pomiędzy generowaniem nowych pociągów
+        // sleep(rand() % 3 + 1); // Czas pomiędzy generowaniem nowych pociągów
+        sleep(1);
     }
 
     return 0;

@@ -118,10 +118,10 @@ void process_queue(SharedMemory* shm) {
                 int tr = rand() % TRACKS_NUMBER;
                 printf("Collision detected. Removing trains from track %d\n", tr);
                 sleep(1);
+                shm->tracks[tr].trains_to_dump = shm->tracks[tr].queue_size;
                 for(int i=0; i<shm->tracks[tr].queue_size; ++i){
                     sem_post(&shm->tracks[tr].track_mutex);
                 }
-                shm->tracks[tr].trains_to_dump = shm->tracks[tr].queue_size;
                 shm->tracks[tr].queue_size = 0;
 
                 sem_post(&shm->memory_mutex);
