@@ -2,32 +2,78 @@
 
 pid_t train_pids[MAX_TRAINS_ON_TRACK * TRACKS_NUMBER];
 int train_count = 0;
+int shmid;
+SharedMemory* shm;
+int is_generator = 1;
 
-void cleanup(int signum) {
-    printf("\nCleaning generator...\n", signum);
+void cleanup() {
+    if(is_generator){
+        printf("\nCleaning generator...\n");
+        // for(int i=0; i < TRACKS_NUMBER; ++i){
+        //     shm->tracks[i].queue_size = 0;
+        // }
+        for (int i = 0; i < train_count; i++) {
+            printf("Stopping train process %d...\n", train_pids[i]);
+            kill(train_pids[i], SIGTERM);
+        }
 
-    for (int i = 0; i < train_count; i++) {
-        printf("Stopping train process %d...\n", train_pids[i]);
-        kill(train_pids[i], SIGTERM);
+        printf("Finished cleaning generator.\n");
+        exit(0);
+    }
+}
+
+void train_process(int train_id, int priority, int track) {
+    is_generator = 0;
+    shmid = shmget(SHM_KEY, sizeof(SharedMemory), 0666);
+    if (shmid < 0) {
+        perror("shmget failed");
+        exit(1);
     }
 
-    printf("Finished cleaning generator.\n");
+    SharedMemory* shm = (SharedMemory*)shmat(shmid, NULL, 0);
+    if (shm == (SharedMemory*)-1) {
+        perror("shmat failed");
+        exit(1);
+    }
+
+    sem_wait(&shm->memory_mutex);
+
+    if (shm->tracks[track].queue_size < MAX_TRAINS_ON_TRACK) {
+        shm->tracks[track].queue[shm->tracks[track].queue_size].train_id = train_id;
+        shm->tracks[track].queue[shm->tracks[track].queue_size].priority = priority;
+        shm->tracks[track].queue[shm->tracks[track].queue_size].track = track;
+        shm->tracks[track].queue_size++;
+        printf("Train ID=%d registered: priority=%d, track=%d\n", train_id, priority, track);
+    } else {
+        fprintf(stderr, "Train queue is full, train ID=%d cannot register.\n", train_id);
+        sem_post(&shm->memory_mutex);
+        exit(1);
+    }
+
+    sem_post(&shm->memory_mutex);
+
+    sem_wait(&shm->tracks[track].track_mutex);
+
+    if (shm->tracks[track].trains_to_dump > 0) {
+        printf("Train %d was removed\n", train_id);
+        shm->tracks[track].trains_to_dump--;
+        exit(0);
+    }
+
+    sem_wait(&shm->tunnel_access);
+
+    printf("Train %d entering tunnel\n", train_id);
+    sleep(2);
+    printf("Train %d leaving tunnel\n", train_id);
+
     exit(0);
 }
 
-void create_train_process(int train_id, int priority, int direction) {
+void create_train_process(int train_id, int priority, int track) {
     pid_t pid = fork();
     if (pid == 0) { 
-        char train_id_str[10], priority_str[10], direction_str[10];
-        sprintf(train_id_str, "%d", train_id);
-        sprintf(priority_str, "%d", priority);
-        sprintf(direction_str, "%d", direction);
-
-        execlp("./train", "./train", train_id_str, priority_str, direction_str, NULL);
-        perror("execlp failed"); 
-        exit(1);
-    }
-    else if (pid > 0) {
+        train_process(train_id, priority, track);
+    } else if (pid > 0) {
         if (train_count < MAX_TRAINS_ON_TRACK * TRACKS_NUMBER) {
             train_pids[train_count++] = pid;
         }
@@ -38,19 +84,41 @@ void create_train_process(int train_id, int priority, int direction) {
 
 int main() {
     signal(SIGINT, cleanup);
-    srand(time(NULL)); 
+    srand(time(NULL));
 
-    // Generowanie pociągów
+    shmid = shmget(SHM_KEY, sizeof(SharedMemory), IPC_CREAT | 0666);
+    if (shmid < 0) {
+        perror("shmget failed");
+        exit(1);
+    }
+
+    shm = (SharedMemory*)shmat(shmid, NULL, 0);
+    if (shm == (SharedMemory*)-1) {
+        perror("shmat failed");
+        exit(1);
+    }
+
+    for (int i = 0; i < TRACKS_NUMBER; i++) {
+        shm->tracks[i].trains_to_dump = 0;
+        shm->tracks[i].queue_size = 0;
+        sem_init(&shm->tracks[i].track_mutex, 1, 0);
+    }
+    shm->tunnel_busy = 0;
+    sem_init(&shm->memory_mutex, 1, 1);
+    sem_init(&shm->tunnel_access, 1, 0);
+
+    printf("Tunnel manager started. Press Ctrl+C to exit.\n");
+
     int train_id = 0;
     while (1) {
-        int priority = rand() % 3 + 1;     
-        int track = rand() % TRACKS_NUMBER;   
-        printf("Generating train ID=%d, priority=%d, track=%d\n", train_id, priority, track);
+        int priority = rand() % 3 + 1;  
+        int track = rand() % TRACKS_NUMBER;  
 
+        printf("Generating train ID=%d, priority=%d, track=%d\n", train_id, priority, track);
         create_train_process(train_id, priority, track);
         train_id++;
 
-        sleep(rand() % 3 + 1);
+        sleep(rand() % 3 + 1); 
     }
 
     return 0;

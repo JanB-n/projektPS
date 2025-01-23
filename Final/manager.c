@@ -3,8 +3,8 @@
 int shmid;
 SharedMemory* shm;
 
-void cleanup(int signum) {
-    printf("\nCleaning manager...\n", signum);
+void cleanup() {
+    printf("\nCleaning manager...\n");
     
     for (int i = 0; i < TRACKS_NUMBER; i++) {
         sem_destroy(&shm->tracks[i].track_mutex);
@@ -125,7 +125,7 @@ void process_queue(SharedMemory* shm) {
 
             sem_post(&shm->tunnel_access);
             sem_post(&shm->tracks[track_to_move].track_mutex);
-            printf("Chosen train - Track %d: Train ID=%d, Priorytet=%d\n", 
+            printf("Decided - Track %d: Train ID=%d, Priority=%d\n", 
                 track_to_move, shm->tracks[track_to_move].queue[0].train_id, shm->tracks[track_to_move].queue[0].priority);
 
             for (int i = 0; i < shm->tracks[track_to_move].queue_size - 1; i++) {
@@ -139,7 +139,7 @@ void process_queue(SharedMemory* shm) {
 
 int main() {
     signal(SIGINT, cleanup);
-    shmid = shmget(12345, sizeof(SharedMemory), IPC_CREAT | 0666);
+    shmid = shmget(SHM_KEY, sizeof(SharedMemory), IPC_CREAT | 0666);
     printf("Shared memory created with key 12345. Shmid: %d\n", shmid);
     if (shmid < 0) {
         perror("shmget failed");

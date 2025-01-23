@@ -10,6 +10,7 @@
 
 #define MAX_TRAINS_ON_TRACK 3
 #define TRACKS_NUMBER 4
+#define SHM_KEY 12345
 
 typedef struct {
     int train_id;
