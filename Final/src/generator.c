@@ -1,11 +1,19 @@
+/**
+ * @file generator.c
+ * @brief Program generujący pociągi i dodający je do pamięci współdzielonej.
+ */
+
 #include "common.h"
 
-pid_t train_pids[MAX_TRAINS_ON_TRACK * TRACKS_NUMBER];
-int train_count = 0;
-int shmid;
-SharedMemory* shm;
-int is_generator = 1;
+pid_t train_pids[MAX_TRAINS_ON_TRACK * TRACKS_NUMBER]; /**< Tablica PID-ów procesów pociągów */
+int train_count = 0; /**< Licznik wygenerowanych pociągów */
+int shmid; /**< Identyfikator pamięci współdzielonej */
+SharedMemory* shm; /**< Wskaźnik do pamięci współdzielonej */
+int is_generator = 1; /**< Flaga określająca, czy proces jest generatorem */
 
+/**
+ * @brief Funkcja obsługi sygnału SIGINT, zatrzymująca procesy.
+ */
 void cleanup() {
     if(is_generator){
         printf("\nCleaning generator...\n");
@@ -22,6 +30,13 @@ void cleanup() {
     }
 }
 
+/**
+ * @brief Proces reprezentujący pociąg.
+ * 
+ * @param train_id  ID pociągu.
+ * @param priority  Priorytet pociągu.
+ * @param track     Tor, na którym pociąg się znajduje.
+ */
 void train_process(int train_id, int priority, int track) {
     is_generator = 0;
     shmid = shmget(SHM_KEY, sizeof(SharedMemory), 0666);
@@ -69,6 +84,13 @@ void train_process(int train_id, int priority, int track) {
     exit(0);
 }
 
+/**
+ * @brief Tworzy proces dla nowego pociągu.
+ * 
+ * @param train_id  ID pociągu.
+ * @param priority  Priorytet pociągu.
+ * @param track     Numer toru, na którym się znajduje.
+ */
 void create_train_process(int train_id, int priority, int track) {
     pid_t pid = fork();
     if (pid == 0) { 
@@ -82,6 +104,13 @@ void create_train_process(int train_id, int priority, int track) {
     }
 }
 
+/**
+ * @brief Główna funkcja generatora pociągów.
+ * 
+ * Tworzy nowe pociągi w losowych odstępach czasu i przekazuje je do pamięci współdzielonej.
+ * 
+ * @return int Kod zakończenia programu.
+ */
 int main() {
     signal(SIGINT, cleanup);
     srand(time(NULL));

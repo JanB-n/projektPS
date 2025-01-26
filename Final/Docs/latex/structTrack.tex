@@ -1,0 +1,67 @@
+\doxysection{Track Struct Reference}
+\hypertarget{structTrack}{}\label{structTrack}\index{Track@{Track}}
+
+
+Struktura reprezentująca tor.  
+
+
+
+
+{\ttfamily \#include $<$common.\+h$>$}
+
+
+
+Collaboration diagram for Track\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=135pt]{structTrack__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structTrain}{Train}} \mbox{\hyperlink{structTrack_a95d4796eb1831b0862851c36993941f1}{queue}} \mbox{[}\mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK}}\mbox{]}
+\item 
+int \mbox{\hyperlink{structTrack_ab308f2d163ad1b2a794071518205ac8a}{queue\+\_\+size}}
+\item 
+int \mbox{\hyperlink{structTrack_a10955c6e91273adb08d9ec296b7e802c}{trains\+\_\+to\+\_\+dump}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{structTrack_aca2c56d6f63e6482c388d8f5835e0363}{track\+\_\+mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struktura reprezentująca tor. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structTrack_a95d4796eb1831b0862851c36993941f1}\label{structTrack_a95d4796eb1831b0862851c36993941f1} 
+\index{Track@{Track}!queue@{queue}}
+\index{queue@{queue}!Track@{Track}}
+\doxysubsubsection{\texorpdfstring{queue}{queue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structTrain}{Train}} Track\+::queue\mbox{[}\mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK}}\mbox{]}}
+
+Kolejka pociągów na torze \Hypertarget{structTrack_ab308f2d163ad1b2a794071518205ac8a}\label{structTrack_ab308f2d163ad1b2a794071518205ac8a} 
+\index{Track@{Track}!queue\_size@{queue\_size}}
+\index{queue\_size@{queue\_size}!Track@{Track}}
+\doxysubsubsection{\texorpdfstring{queue\_size}{queue\_size}}
+{\footnotesize\ttfamily int Track\+::queue\+\_\+size}
+
+Liczba pociągów w kolejce \Hypertarget{structTrack_aca2c56d6f63e6482c388d8f5835e0363}\label{structTrack_aca2c56d6f63e6482c388d8f5835e0363} 
+\index{Track@{Track}!track\_mutex@{track\_mutex}}
+\index{track\_mutex@{track\_mutex}!Track@{Track}}
+\doxysubsubsection{\texorpdfstring{track\_mutex}{track\_mutex}}
+{\footnotesize\ttfamily sem\+\_\+t Track\+::track\+\_\+mutex}
+
+Semafor kontrolujący dostęp do toru \Hypertarget{structTrack_a10955c6e91273adb08d9ec296b7e802c}\label{structTrack_a10955c6e91273adb08d9ec296b7e802c} 
+\index{Track@{Track}!trains\_to\_dump@{trains\_to\_dump}}
+\index{trains\_to\_dump@{trains\_to\_dump}!Track@{Track}}
+\doxysubsubsection{\texorpdfstring{trains\_to\_dump}{trains\_to\_dump}}
+{\footnotesize\ttfamily int Track\+::trains\+\_\+to\+\_\+dump}
+
+Liczba pociągów do usunięcia 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\+Users/\+Janek/\+Desktop/projekt\+PS/\+Final/src/\mbox{\hyperlink{common_8h}{common.\+h}}\end{DoxyCompactItemize}

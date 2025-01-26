@@ -1,0 +1,136 @@
+\doxysection{/mnt/c/\+Users/\+Janek/\+Desktop/projekt\+PS/\+Final/src/generator.c File Reference}
+\hypertarget{generator_8c}{}\label{generator_8c}\index{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/generator.c@{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/generator.c}}
+
+
+Program generujący pociągi i dodający je do pamięci współdzielonej.  
+
+
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for generator.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{generator_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{generator_8c_a4b66d5e31b5dc18b314c8a68163263bd}\label{generator_8c_a4b66d5e31b5dc18b314c8a68163263bd} 
+void {\bfseries cleanup} ()
+\begin{DoxyCompactList}\small\item\em Funkcja obsługi sygnału SIGINT, zatrzymująca procesy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{generator_8c_ae373a1f5fffe4149a4bc12384cf48dfc}{train\+\_\+process}} (int train\+\_\+id, int priority, int track)
+\begin{DoxyCompactList}\small\item\em Proces reprezentujący pociąg. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{generator_8c_a4a1da9fafc5f12973530a3c7e778b5bb}{create\+\_\+train\+\_\+process}} (int train\+\_\+id, int priority, int track)
+\begin{DoxyCompactList}\small\item\em Tworzy proces dla nowego pociągu. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{generator_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Główna funkcja generatora pociągów. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pid\+\_\+t \mbox{\hyperlink{generator_8c_a37a4c7a34249971195da6b88a904b52f}{train\+\_\+pids}} \mbox{[}\mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\+\_\+\+NUMBER}}\mbox{]}
+\item 
+int \mbox{\hyperlink{generator_8c_a2662954ed00c0f949ac31cc1d0082ab6}{train\+\_\+count}} = 0
+\item 
+int \mbox{\hyperlink{generator_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}}
+\item 
+\mbox{\hyperlink{structSharedMemory}{Shared\+Memory}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{generator_8c_a865305c4e23cd7bac93c314f9443f212}{shm}}
+\item 
+int \mbox{\hyperlink{generator_8c_a2b3213dd7b767fc4ecc503197c191674}{is\+\_\+generator}} = 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Program generujący pociągi i dodający je do pamięci współdzielonej. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{generator_8c_a4a1da9fafc5f12973530a3c7e778b5bb}\label{generator_8c_a4a1da9fafc5f12973530a3c7e778b5bb} 
+\index{generator.c@{generator.c}!create\_train\_process@{create\_train\_process}}
+\index{create\_train\_process@{create\_train\_process}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{create\_train\_process()}{create\_train\_process()}}
+{\footnotesize\ttfamily void create\+\_\+train\+\_\+process (\begin{DoxyParamCaption}\item[{int}]{train\+\_\+id,  }\item[{int}]{priority,  }\item[{int}]{track }\end{DoxyParamCaption})}
+
+
+
+Tworzy proces dla nowego pociągu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em train\+\_\+id} & ID pociągu. \\
+\hline
+{\em priority} & Priorytet pociągu. \\
+\hline
+{\em track} & Numer toru, na którym się znajduje. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{generator_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{generator_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{generator.c@{generator.c}!main@{main}}
+\index{main@{main}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Główna funkcja generatora pociągów. 
+
+Tworzy nowe pociągi w losowych odstępach czasu i przekazuje je do pamięci współdzielonej.
+
+\begin{DoxyReturn}{Returns}
+int Kod zakończenia programu. 
+\end{DoxyReturn}
+\Hypertarget{generator_8c_ae373a1f5fffe4149a4bc12384cf48dfc}\label{generator_8c_ae373a1f5fffe4149a4bc12384cf48dfc} 
+\index{generator.c@{generator.c}!train\_process@{train\_process}}
+\index{train\_process@{train\_process}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{train\_process()}{train\_process()}}
+{\footnotesize\ttfamily void train\+\_\+process (\begin{DoxyParamCaption}\item[{int}]{train\+\_\+id,  }\item[{int}]{priority,  }\item[{int}]{track }\end{DoxyParamCaption})}
+
+
+
+Proces reprezentujący pociąg. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em train\+\_\+id} & ID pociągu. \\
+\hline
+{\em priority} & Priorytet pociągu. \\
+\hline
+{\em track} & Tor, na którym pociąg się znajduje. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{generator_8c_a2b3213dd7b767fc4ecc503197c191674}\label{generator_8c_a2b3213dd7b767fc4ecc503197c191674} 
+\index{generator.c@{generator.c}!is\_generator@{is\_generator}}
+\index{is\_generator@{is\_generator}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{is\_generator}{is\_generator}}
+{\footnotesize\ttfamily int is\+\_\+generator = 1}
+
+Flaga określająca, czy proces jest generatorem \Hypertarget{generator_8c_a865305c4e23cd7bac93c314f9443f212}\label{generator_8c_a865305c4e23cd7bac93c314f9443f212} 
+\index{generator.c@{generator.c}!shm@{shm}}
+\index{shm@{shm}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{shm}{shm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSharedMemory}{Shared\+Memory}}\texorpdfstring{$\ast$}{*} shm}
+
+Wskaźnik do pamięci współdzielonej \Hypertarget{generator_8c_ac8807d215d2ee6d9779d76aeb1147430}\label{generator_8c_ac8807d215d2ee6d9779d76aeb1147430} 
+\index{generator.c@{generator.c}!shmid@{shmid}}
+\index{shmid@{shmid}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{shmid}{shmid}}
+{\footnotesize\ttfamily int shmid}
+
+Identyfikator pamięci współdzielonej \Hypertarget{generator_8c_a2662954ed00c0f949ac31cc1d0082ab6}\label{generator_8c_a2662954ed00c0f949ac31cc1d0082ab6} 
+\index{generator.c@{generator.c}!train\_count@{train\_count}}
+\index{train\_count@{train\_count}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{train\_count}{train\_count}}
+{\footnotesize\ttfamily int train\+\_\+count = 0}
+
+Licznik wygenerowanych pociągów \Hypertarget{generator_8c_a37a4c7a34249971195da6b88a904b52f}\label{generator_8c_a37a4c7a34249971195da6b88a904b52f} 
+\index{generator.c@{generator.c}!train\_pids@{train\_pids}}
+\index{train\_pids@{train\_pids}!generator.c@{generator.c}}
+\doxysubsubsection{\texorpdfstring{train\_pids}{train\_pids}}
+{\footnotesize\ttfamily pid\+\_\+t train\+\_\+pids\mbox{[}\mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\+\_\+\+NUMBER}}\mbox{]}}
+
+Tablica PID-\/ów procesów pociągów 

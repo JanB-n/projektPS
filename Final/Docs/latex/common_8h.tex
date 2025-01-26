@@ -1,0 +1,77 @@
+\doxysection{/mnt/c/\+Users/\+Janek/\+Desktop/projekt\+PS/\+Final/src/common.h File Reference}
+\hypertarget{common_8h}{}\label{common_8h}\index{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/common.h@{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/common.h}}
+
+
+Definicje struktur danych i stałych dla systemu zarządzania ruchem pociągów w tunelu.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+{\ttfamily \#include $<$sys/shm.\+h$>$}\newline
+{\ttfamily \#include $<$semaphore.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+Include dependency graph for common.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structTrain}{Train}}
+\begin{DoxyCompactList}\small\item\em Struktura reprezentująca pociąg. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structTrack}{Track}}
+\begin{DoxyCompactList}\small\item\em Struktura reprezentująca tor. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structSharedMemory}{Shared\+Memory}}
+\begin{DoxyCompactList}\small\item\em Struktura przechowująca wspólne zasoby systemu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK}}~3
+\item 
+\#define \mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\+\_\+\+NUMBER}}~4
+\item 
+\#define \mbox{\hyperlink{common_8h_a31d581c814a72a1c69bd228b078d6b69}{SHM\+\_\+\+KEY}}~12345
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Definicje struktur danych i stałych dla systemu zarządzania ruchem pociągów w tunelu. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}\label{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41} 
+\index{common.h@{common.h}!MAX\_TRAINS\_ON\_TRACK@{MAX\_TRAINS\_ON\_TRACK}}
+\index{MAX\_TRAINS\_ON\_TRACK@{MAX\_TRAINS\_ON\_TRACK}!common.h@{common.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_TRAINS\_ON\_TRACK}{MAX\_TRAINS\_ON\_TRACK}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+TRAINS\+\_\+\+ON\+\_\+\+TRACK~3}
+
+Maksymalna liczba pociągów na jednym torze \Hypertarget{common_8h_a31d581c814a72a1c69bd228b078d6b69}\label{common_8h_a31d581c814a72a1c69bd228b078d6b69} 
+\index{common.h@{common.h}!SHM\_KEY@{SHM\_KEY}}
+\index{SHM\_KEY@{SHM\_KEY}!common.h@{common.h}}
+\doxysubsubsection{\texorpdfstring{SHM\_KEY}{SHM\_KEY}}
+{\footnotesize\ttfamily \#define SHM\+\_\+\+KEY~12345}
+
+Klucz do pamięci współdzielonej \Hypertarget{common_8h_a688ee7c80046e9e2014ac180af129f65}\label{common_8h_a688ee7c80046e9e2014ac180af129f65} 
+\index{common.h@{common.h}!TRACKS\_NUMBER@{TRACKS\_NUMBER}}
+\index{TRACKS\_NUMBER@{TRACKS\_NUMBER}!common.h@{common.h}}
+\doxysubsubsection{\texorpdfstring{TRACKS\_NUMBER}{TRACKS\_NUMBER}}
+{\footnotesize\ttfamily \#define TRACKS\+\_\+\+NUMBER~4}
+
+Liczba dostępnych torów 

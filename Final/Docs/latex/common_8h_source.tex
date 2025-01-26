@@ -1,0 +1,43 @@
+\doxysection{common.\+h}
+\hypertarget{common_8h_source}{}\label{common_8h_source}\index{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/common.h@{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/common.h}}
+\mbox{\hyperlink{common_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sys/ipc.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <sys/shm.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <semaphore.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <signal.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAX\_TRAINS\_ON\_TRACK\ 3\ }}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ TRACKS\_NUMBER\ 4\ }}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ SHM\_KEY\ 12345\ }}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structTrain_ad2e745e503b98636d08e4266e92dec0d}{train\_id}};\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structTrain_ac8c4d4d09f5823792c664580faeeb2d0}{priority}};\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structTrain_a007b464ae82fc4a1e83be1bff2136de6}{track}};\ }
+\DoxyCodeLine{00029\ \}\ \mbox{\hyperlink{structTrain}{Train}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{structTrain}{Train}}\ queue[\mbox{\hyperlink{common_8h_aa435d17ab56e6e42cb28b0f58b01ad41}{MAX\_TRAINS\_ON\_TRACK}}];\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structTrack_ab308f2d163ad1b2a794071518205ac8a}{queue\_size}};\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structTrack_a10955c6e91273adb08d9ec296b7e802c}{trains\_to\_dump}};\ }
+\DoxyCodeLine{00040\ \ \ \ \ sem\_t\ \mbox{\hyperlink{structTrack_aca2c56d6f63e6482c388d8f5835e0363}{track\_mutex}};\ }
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{structTrack}{Track}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{structTrack}{Track}}\ tracks[\mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\_NUMBER}}];\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structSharedMemory_a19ea2e2d4b235d4302117b5e5e31ca87}{tunnel\_busy}};\ }
+\DoxyCodeLine{00051\ \ \ \ \ sem\_t\ \mbox{\hyperlink{structSharedMemory_a48c34eddedd6bf3212bfa36a4de43ba2}{memory\_mutex}};\ }
+\DoxyCodeLine{00052\ \ \ \ \ sem\_t\ \mbox{\hyperlink{structSharedMemory_aa23dc1085c756f7f9f3246e3c3f2a701}{tunnel\_access}};\ }
+\DoxyCodeLine{00053\ \}\ \mbox{\hyperlink{structSharedMemory}{SharedMemory}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+
+\end{DoxyCode}

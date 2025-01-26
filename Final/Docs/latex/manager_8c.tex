@@ -1,0 +1,153 @@
+\doxysection{/mnt/c/\+Users/\+Janek/\+Desktop/projekt\+PS/\+Final/src/manager.c File Reference}
+\hypertarget{manager_8c}{}\label{manager_8c}\index{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/manager.c@{/mnt/c/Users/Janek/Desktop/projektPS/Final/src/manager.c}}
+
+
+Program zarządzający ruchem pociągów w tunelu.  
+
+
+{\ttfamily \#include "{}common.\+h"{}}\newline
+Include dependency graph for manager.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{manager_8c_a4b66d5e31b5dc18b314c8a68163263bd}{cleanup}} ()
+\begin{DoxyCompactList}\small\item\em Funkcja czyszcząca zasoby managera tunelu. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{manager_8c_a7da3417cab5109e8e89513fdcfb6d2ee}{get\+\_\+highest\+\_\+priority\+\_\+train}} (int \texorpdfstring{$\ast$}{*}valid\+\_\+trains)
+\begin{DoxyCompactList}\small\item\em Pobiera numer toru o najwyższym priorytecie pociągu. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{manager_8c_adc1b0a961c3a7d88a3079bfe8b3fc2d7}{get\+\_\+number\+\_\+of\+\_\+valid\+\_\+trains}} (int \texorpdfstring{$\ast$}{*}valid\+\_\+trains)
+\begin{DoxyCompactList}\small\item\em Oblicza liczbę torów, na których znajdują się pociągi. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{manager_8c_ae7fb2ce162afdd86e6f5f96edeb77f47}{can\+\_\+train\+\_\+pass}} (int track\+\_\+id, int \texorpdfstring{$\ast$}{*}valid\+\_\+trains)
+\begin{DoxyCompactList}\small\item\em Sprawdza, czy pociąg z danego toru może przejechać przez tunel w sposób fizyczny. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{manager_8c_ae1a5f817bca2e39e898ed0a31fa07606}{process\+\_\+queue}} (\mbox{\hyperlink{structSharedMemory}{Shared\+Memory}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{generator_8c_a865305c4e23cd7bac93c314f9443f212}{shm}})
+\begin{DoxyCompactList}\small\item\em Funkcja przetwarzająca kolejkę pociągów w tunelu. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{manager_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Główna funkcja programu managera tunelu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{manager_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}}
+\item 
+\mbox{\hyperlink{structSharedMemory}{Shared\+Memory}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{manager_8c_a865305c4e23cd7bac93c314f9443f212}{shm}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Program zarządzający ruchem pociągów w tunelu. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{manager_8c_ae7fb2ce162afdd86e6f5f96edeb77f47}\label{manager_8c_ae7fb2ce162afdd86e6f5f96edeb77f47} 
+\index{manager.c@{manager.c}!can\_train\_pass@{can\_train\_pass}}
+\index{can\_train\_pass@{can\_train\_pass}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{can\_train\_pass()}{can\_train\_pass()}}
+{\footnotesize\ttfamily bool can\+\_\+train\+\_\+pass (\begin{DoxyParamCaption}\item[{int}]{track\+\_\+id,  }\item[{int \texorpdfstring{$\ast$}{*}}]{valid\+\_\+trains }\end{DoxyParamCaption})}
+
+
+
+Sprawdza, czy pociąg z danego toru może przejechać przez tunel w sposób fizyczny. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em track\+\_\+id} & ID toru do sprawdzenia. \\
+\hline
+{\em valid\+\_\+trains} & Tablica priorytetów pociągów na torach. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true jeśli przejazd jest możliwy, false w przeciwnym razie. 
+\end{DoxyReturn}
+\Hypertarget{manager_8c_a4b66d5e31b5dc18b314c8a68163263bd}\label{manager_8c_a4b66d5e31b5dc18b314c8a68163263bd} 
+\index{manager.c@{manager.c}!cleanup@{cleanup}}
+\index{cleanup@{cleanup}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
+{\footnotesize\ttfamily void cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Funkcja czyszcząca zasoby managera tunelu. 
+
+Usuwa pamięć współdzieloną oraz niszczy semafory. \Hypertarget{manager_8c_a7da3417cab5109e8e89513fdcfb6d2ee}\label{manager_8c_a7da3417cab5109e8e89513fdcfb6d2ee} 
+\index{manager.c@{manager.c}!get\_highest\_priority\_train@{get\_highest\_priority\_train}}
+\index{get\_highest\_priority\_train@{get\_highest\_priority\_train}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{get\_highest\_priority\_train()}{get\_highest\_priority\_train()}}
+{\footnotesize\ttfamily int get\+\_\+highest\+\_\+priority\+\_\+train (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{valid\+\_\+trains }\end{DoxyParamCaption})}
+
+
+
+Pobiera numer toru o najwyższym priorytecie pociągu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em valid\+\_\+trains} & Tablica priorytetów pociągów na torach. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Indeks toru o najwyższym priorytecie. 
+\end{DoxyReturn}
+\Hypertarget{manager_8c_adc1b0a961c3a7d88a3079bfe8b3fc2d7}\label{manager_8c_adc1b0a961c3a7d88a3079bfe8b3fc2d7} 
+\index{manager.c@{manager.c}!get\_number\_of\_valid\_trains@{get\_number\_of\_valid\_trains}}
+\index{get\_number\_of\_valid\_trains@{get\_number\_of\_valid\_trains}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{get\_number\_of\_valid\_trains()}{get\_number\_of\_valid\_trains()}}
+{\footnotesize\ttfamily int get\+\_\+number\+\_\+of\+\_\+valid\+\_\+trains (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{valid\+\_\+trains }\end{DoxyParamCaption})}
+
+
+
+Oblicza liczbę torów, na których znajdują się pociągi. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em valid\+\_\+trains} & Tablica priorytetów pociągów na torach. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Liczba torów z pociągami. 
+\end{DoxyReturn}
+\Hypertarget{manager_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{manager_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{manager.c@{manager.c}!main@{main}}
+\index{main@{main}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Główna funkcja programu managera tunelu. 
+
+Inicjalizuje pamięć współdzieloną oraz semafory, następnie uruchamia przetwarzanie kolejki.
+
+\begin{DoxyReturn}{Returns}
+int Kod zakończenia programu. 
+\end{DoxyReturn}
+\Hypertarget{manager_8c_ae1a5f817bca2e39e898ed0a31fa07606}\label{manager_8c_ae1a5f817bca2e39e898ed0a31fa07606} 
+\index{manager.c@{manager.c}!process\_queue@{process\_queue}}
+\index{process\_queue@{process\_queue}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{process\_queue()}{process\_queue()}}
+{\footnotesize\ttfamily void process\+\_\+queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSharedMemory}{Shared\+Memory}} \texorpdfstring{$\ast$}{*}}]{shm }\end{DoxyParamCaption})}
+
+
+
+Funkcja przetwarzająca kolejkę pociągów w tunelu. 
+
+Analizuje priorytety pociągów oraz ich pozycje i decyduje, które z nich mogą przejechać. W przypadku konfliktu (wszystkie tory zajęte) usuwa wszystkie pociągi z losowego toru (żeby dało się przejechać). 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{manager_8c_a865305c4e23cd7bac93c314f9443f212}\label{manager_8c_a865305c4e23cd7bac93c314f9443f212} 
+\index{manager.c@{manager.c}!shm@{shm}}
+\index{shm@{shm}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{shm}{shm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSharedMemory}{Shared\+Memory}}\texorpdfstring{$\ast$}{*} shm}
+
+Wskaźnik do struktury pamięci współdzielonej \Hypertarget{manager_8c_ac8807d215d2ee6d9779d76aeb1147430}\label{manager_8c_ac8807d215d2ee6d9779d76aeb1147430} 
+\index{manager.c@{manager.c}!shmid@{shmid}}
+\index{shmid@{shmid}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{shmid}{shmid}}
+{\footnotesize\ttfamily int shmid}
+
+Identyfikator segmentu pamięci współdzielonej 

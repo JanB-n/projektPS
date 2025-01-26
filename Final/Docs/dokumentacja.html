@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentacja projektu - System zarządzania tunelem</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        h1, h2, h3 { color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+        code { color: #d14; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Symulacja tunelu kolejowego przy użyciu mechanizmów systemowych</h1>
+        
+        <h2>1. Ogólna koncepcja</h2>
+        <p>System symuluje ruch pociągów przez tunel. W tunelu jest jeden tor, którego końce rozdzielają się na dwa, czyli pociągi do tunelu mogą wjechać z czterech różnych torów, po 2 na stronę. Każdy pociąg posiada priorytet, a decyzje dotyczące przejazdu podejmowane są na podstawie priorytetów i dostępności torów.</p>
+
+        <h2>2. Zastosowane mechanizmy systemowe</h2>
+        <ul>
+            <li><strong>Pamięć współdzielona:</strong> do przechowywania informacji o pociągach.</li>
+            <li><strong>Semafory:</strong> do synchronizacji dostępu do pamięci współdzielonej.</li>
+            <li><strong>Procesy potomne:</strong> generowane przez główny proces generatora.</li>
+            <li><strong>Obsługa sygnałów:</strong> umożliwia bezpieczne zamykanie procesów.</li>
+        </ul>
+
+        <h2>3. Opis procesów i zależności</h2>
+        <h3>Proces generatora</h3>
+        <p>Tworzy procesy jako nowe pociągi, losując im priorytet i tor, a następnie zapisuje je w pamięci współdzielonej.</p>
+
+        <h3>Proces zarządcy</h3>
+        <p>Decyduje o tym, który pociąg może wjechać do tunelu, na podstawie priorytetów i dostępności torów. W przypadku zajęcia każdego z torów losowo oczyści jeden z nich, by pozostałe pociągi mogły ruszyć.</p>
+
+        <h2>4. Uruchomienie i instalacja</h2>
+        <h3>Wymagania:</h3>
+        <ul>
+            <li>System Linux z obsługą IPC</li>
+            <li>Kompilator GCC</li>
+        </ul>
+
+        <h3>Instrukcja:</h3>
+        <p>Kompilacja:</p>
+        <pre><code>make</code></pre>
+        <p>Uruchomienie systemu:</p>
+        <pre><code>cd bin & ./manager</code></pre>
+        <pre><code>cd bin & ./generator</code></pre>
+        <p>Testowanie:</p>
+        <pre><code>make test</code></pre>
+        <p>Czyszczenie plików:</p>
+        <pre><code>make clean</code></pre>
+
+        <h2>5. Struktura projektu</h2>
+        <pre>
+Final/
+│-- bin/                 
+│   ├── generator        # Plik wykonywalny dla generatora pociągów
+│   ├── manager          # Plik wykonywalny dla zarządcy ruchu
+│
+│-- Docs/                # Dokumentacja projektu
+│   ├── html/             # Dokumentacja w formacie HTML
+│   ├── latex/            # Dokumentacja w formacie LaTeX
+│   ├── dokumentacja.html # Główny plik HTML dokumentacji
+│   ├── Doxyfile          # Konfiguracja dla Doxygen
+│
+│-- log/                 
+│
+│-- src/                 # Źródła kodu aplikacji
+│   ├── common.h          # Wspólne definicje i struktury
+│   ├── generator.c       # Proces generujący pociągi
+│   ├── generator_old.c   # Stara wersja generatora
+│   ├── generator.o       # Skompilowany obiekt generatora
+│   ├── manager.c         # Proces zarządzający ruchem pociągów
+│   ├── manager.o         # Skompilowany obiekt managera
+│   ├── train.c           # Stara wersja procesu pociągu
+│
+│-- Makefile              # Plik kompilacji i uruchomienia projektu
+│-- test_general.sh       # Skrypt testujący działanie systemu
+│-- test_tunnel_priority.sh # Skrypt testujący priorytety w tunelu
+        </pre>
+        
+        <h2>6. Autor</h2>
+        <p>Jan Baran</p>
+
+    </div>
+</body>
+</html>

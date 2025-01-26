@@ -1,0 +1,67 @@
+\doxysection{Shared\+Memory Struct Reference}
+\hypertarget{structSharedMemory}{}\label{structSharedMemory}\index{SharedMemory@{SharedMemory}}
+
+
+Struktura przechowująca wspólne zasoby systemu.  
+
+
+
+
+{\ttfamily \#include $<$common.\+h$>$}
+
+
+
+Collaboration diagram for Shared\+Memory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{structSharedMemory__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structTrack}{Track}} \mbox{\hyperlink{structSharedMemory_ac1a822f6225a19a1785d66da3598d490}{tracks}} \mbox{[}\mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\+\_\+\+NUMBER}}\mbox{]}
+\item 
+int \mbox{\hyperlink{structSharedMemory_a19ea2e2d4b235d4302117b5e5e31ca87}{tunnel\+\_\+busy}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{structSharedMemory_a48c34eddedd6bf3212bfa36a4de43ba2}{memory\+\_\+mutex}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{structSharedMemory_aa23dc1085c756f7f9f3246e3c3f2a701}{tunnel\+\_\+access}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struktura przechowująca wspólne zasoby systemu. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structSharedMemory_a48c34eddedd6bf3212bfa36a4de43ba2}\label{structSharedMemory_a48c34eddedd6bf3212bfa36a4de43ba2} 
+\index{SharedMemory@{SharedMemory}!memory\_mutex@{memory\_mutex}}
+\index{memory\_mutex@{memory\_mutex}!SharedMemory@{SharedMemory}}
+\doxysubsubsection{\texorpdfstring{memory\_mutex}{memory\_mutex}}
+{\footnotesize\ttfamily sem\+\_\+t Shared\+Memory\+::memory\+\_\+mutex}
+
+Semafor dostępu do pamięci współdzielonej \Hypertarget{structSharedMemory_ac1a822f6225a19a1785d66da3598d490}\label{structSharedMemory_ac1a822f6225a19a1785d66da3598d490} 
+\index{SharedMemory@{SharedMemory}!tracks@{tracks}}
+\index{tracks@{tracks}!SharedMemory@{SharedMemory}}
+\doxysubsubsection{\texorpdfstring{tracks}{tracks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structTrack}{Track}} Shared\+Memory\+::tracks\mbox{[}\mbox{\hyperlink{common_8h_a688ee7c80046e9e2014ac180af129f65}{TRACKS\+\_\+\+NUMBER}}\mbox{]}}
+
+Tablica torów \Hypertarget{structSharedMemory_aa23dc1085c756f7f9f3246e3c3f2a701}\label{structSharedMemory_aa23dc1085c756f7f9f3246e3c3f2a701} 
+\index{SharedMemory@{SharedMemory}!tunnel\_access@{tunnel\_access}}
+\index{tunnel\_access@{tunnel\_access}!SharedMemory@{SharedMemory}}
+\doxysubsubsection{\texorpdfstring{tunnel\_access}{tunnel\_access}}
+{\footnotesize\ttfamily sem\+\_\+t Shared\+Memory\+::tunnel\+\_\+access}
+
+Semafor dostępu do tunelu \Hypertarget{structSharedMemory_a19ea2e2d4b235d4302117b5e5e31ca87}\label{structSharedMemory_a19ea2e2d4b235d4302117b5e5e31ca87} 
+\index{SharedMemory@{SharedMemory}!tunnel\_busy@{tunnel\_busy}}
+\index{tunnel\_busy@{tunnel\_busy}!SharedMemory@{SharedMemory}}
+\doxysubsubsection{\texorpdfstring{tunnel\_busy}{tunnel\_busy}}
+{\footnotesize\ttfamily int Shared\+Memory\+::tunnel\+\_\+busy}
+
+Flaga zajętości tunelu 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\+Users/\+Janek/\+Desktop/projekt\+PS/\+Final/src/\mbox{\hyperlink{common_8h}{common.\+h}}\end{DoxyCompactItemize}

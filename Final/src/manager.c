@@ -1,8 +1,18 @@
+/**
+ * @file manager.c
+ * @brief Program zarządzający ruchem pociągów w tunelu.
+ */
+
 #include "common.h"
 
-int shmid;
-SharedMemory* shm;
-
+int shmid; /**< Identyfikator segmentu pamięci współdzielonej */
+SharedMemory* shm; /**< Wskaźnik do struktury pamięci współdzielonej */
+ 
+/**
+ * @brief Funkcja czyszcząca zasoby managera tunelu.
+ * 
+ * Usuwa pamięć współdzieloną oraz niszczy semafory.
+ */ 
 void cleanup() {
     printf("\nCleaning manager...\n");
     
@@ -25,6 +35,12 @@ void cleanup() {
     exit(0);
 }
 
+/**
+ * @brief Pobiera numer toru o najwyższym priorytecie pociągu.
+ * 
+ * @param valid_trains Tablica priorytetów pociągów na torach.
+ * @return Indeks toru o najwyższym priorytecie.
+ */
 int get_highest_priority_train(int* valid_trains) {
     int priority = 0;
     for (int i = 0; i < TRACKS_NUMBER; i++) {
@@ -40,6 +56,12 @@ int get_highest_priority_train(int* valid_trains) {
     return -1;
 }
 
+/**
+ * @brief Oblicza liczbę torów, na których znajdują się pociągi.
+ * 
+ * @param valid_trains Tablica priorytetów pociągów na torach.
+ * @return Liczba torów z pociągami.
+ */
 int get_number_of_valid_trains(int* valid_trains) {
     int valid_trains_no = 0;
     for (int i = 0; i < TRACKS_NUMBER; i++) {
@@ -49,6 +71,13 @@ int get_number_of_valid_trains(int* valid_trains) {
     return valid_trains_no;
 }
 
+/**
+ * @brief Sprawdza, czy pociąg z danego toru może przejechać przez tunel w sposób fizyczny.
+ * 
+ * @param track_id ID toru do sprawdzenia.
+ * @param valid_trains Tablica priorytetów pociągów na torach.
+ * @return true jeśli przejazd jest możliwy, false w przeciwnym razie.
+ */
 bool can_train_pass(int track_id, int* valid_trains) {
     if (track_id + 1 > TRACKS_NUMBER / 2) {
         for (int i = 0; i < TRACKS_NUMBER / 2; ++i) {
@@ -65,6 +94,12 @@ bool can_train_pass(int track_id, int* valid_trains) {
     return false;
 }
 
+/**
+ * @brief Funkcja przetwarzająca kolejkę pociągów w tunelu.
+ * 
+ * Analizuje priorytety pociągów oraz ich pozycje i decyduje, które z nich mogą przejechać.
+ * W przypadku konfliktu (wszystkie tory zajęte) usuwa wszystkie pociągi z losowego toru (żeby dało się przejechać).
+ */
 void process_queue(SharedMemory* shm) {
     while (1) {
         sem_wait(&shm->memory_mutex);
@@ -137,6 +172,13 @@ void process_queue(SharedMemory* shm) {
     }
 }
 
+/**
+ * @brief Główna funkcja programu managera tunelu.
+ * 
+ * Inicjalizuje pamięć współdzieloną oraz semafory, następnie uruchamia przetwarzanie kolejki.
+ * 
+ * @return int Kod zakończenia programu.
+ */
 int main() {
     signal(SIGINT, cleanup);
     shmid = shmget(SHM_KEY, sizeof(SharedMemory), IPC_CREAT | 0666);

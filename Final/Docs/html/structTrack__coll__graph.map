@@ -1,0 +1,5 @@
+<map id="Track" name="Track">
+<area shape="rect" id="Node000001" title="Struktura reprezentująca tor." alt="" coords="5,93,61,119"/>
+<area shape="rect" id="Node000002" href="$structTrain.html" title="Struktura reprezentująca pociąg." alt="" coords="7,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="36,45,36,93,31,93,31,45"/>
+</map>
